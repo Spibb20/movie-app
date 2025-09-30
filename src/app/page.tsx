@@ -14,8 +14,34 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useState, useEffect } from "react";
+import { MovieType } from "@/lib/types";
 
 export default function Home() {
+  const [movies, setMovies] = useState<MovieType[]>();
+
+  const moviesList: MovieType[] = [
+    {
+      name: "The Godfather",
+      rating: 9.2,
+      imagepath: "/godfather.jpg",
+    },
+    {
+      name: "How to train your dragon",
+      rating: 7.8,
+      imagepath: "/dragon.jpg",
+    },
+    {
+      name: "Alien Romulus",
+      rating: 5.9,
+      imagepath: "/alien.jpg",
+    },
+    {
+      name: "From the Ashes",
+      rating: 8.1,
+      imagepath: "/ashes.jpg",
+    },
+  ];
+
   return (
     <div className="w-full h-screen p-0 flex flex-col gap-2">
       <Navigation />
@@ -41,7 +67,7 @@ export default function Home() {
         </Carousel>
       </div>
 
-      <Upcoming />
+      <Upcoming movies={moviesList} />
     </div>
   );
 }

@@ -1,4 +1,7 @@
-export const Card = () => {
+import { MovieType } from "@/lib/types";
+
+export const Card = (props: { movie: MovieType[] }) => {
+  const { movie } = props;
   return (
     <div className="w-[230px] max-w-[230px] h-[439px] rounded-md bg-secondary flex flex-col">
       <img
@@ -17,7 +20,7 @@ export const Card = () => {
           </div>
         </div>
         <div className="w-full h-full">
-          <p className="font-bold">How to train</p>
+          <p className="font-bold">The Godfather</p>
         </div>
       </div>
     </div>
