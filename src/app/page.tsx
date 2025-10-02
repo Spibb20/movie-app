@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Navigation } from "@/app/_components/Navigation";
-import { Upcoming } from "./_components/Upcoming";
+import { SectionMovies } from "./_components/sectionMovies";
 import { Card } from "@/app/_components/Card";
 
 import {
@@ -17,8 +17,6 @@ import { useState, useEffect } from "react";
 import { MovieType } from "@/lib/types";
 
 export default function Home() {
-  const [movies, setMovies] = useState<MovieType[]>();
-
   const moviesList: MovieType[] = [
     {
       name: "The Godfather",
@@ -67,7 +65,9 @@ export default function Home() {
         </Carousel>
       </div>
 
-      <Upcoming movies={moviesList} />
+      <SectionMovies sectionTitle="Upcoming" movies={moviesList} />
+      <SectionMovies sectionTitle="Popular" movies={moviesList} />
+      <SectionMovies sectionTitle="Top Rated" movies={moviesList} />
     </div>
   );
 }

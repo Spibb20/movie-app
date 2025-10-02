@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ui/ModeToggle";
+import Image from "next/image";
 
 export const Navigation = () => {
   return (
@@ -21,7 +22,16 @@ export const Navigation = () => {
             />
             Genre
           </Button>
-          <Input></Input>
+          <div className="flex items-center">
+            <Image
+              src="/_magnifying-glass.svg"
+              alt="magnifying"
+              width={16}
+              height={16}
+              className="absolute ml-0.5"
+            ></Image>
+            <Input className="relative"></Input>
+          </div>
         </div>
         <ModeToggle />
       </div>
