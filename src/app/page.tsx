@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Navigation } from "@/app/_components/Navigation";
 import { SectionMovies } from "./_components/sectionMovies";
 import { Card } from "@/app/_components/Card";
+import { Footer } from "@/app/_components/Footer";
 
 import {
   Carousel,
@@ -41,7 +42,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full h-screen p-0 flex flex-col gap-2">
+    <div className="w-full h-screen p-0 flex flex-col gap-2 ">
       <Navigation />
       <div className="w-full h-auto mb-8">
         <Carousel
@@ -68,6 +69,7 @@ export default function Home() {
       <SectionMovies sectionTitle="Upcoming" movies={moviesList} />
       <SectionMovies sectionTitle="Popular" movies={moviesList} />
       <SectionMovies sectionTitle="Top Rated" movies={moviesList} />
+      <Footer></Footer>
     </div>
   );
 }
