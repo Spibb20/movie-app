@@ -1,10 +1,7 @@
-"use client";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Navigation } from "@/app/_components/Navigation";
 import { SectionMovies } from "./_components/sectionMovies";
-import { Card } from "@/app/_components/Card";
 import { Footer } from "@/app/_components/Footer";
+import axios from "axios";
 
 import {
   Carousel,
@@ -14,30 +11,46 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useState, useEffect } from "react";
+
 import { MovieType } from "@/lib/types";
 
-export default function Home() {
+export default async function Home() {
+  const getUpcomingMovies = async () => {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+      {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzhkNDY5ZDExNTczYzMwNzg3Yjk2NzJmMDQ5ZmVlZCIsIm5iZiI6MTc1OTQ2NDE4MS43MTI5OTk4LCJzdWIiOiI2OGRmNGFmNTdiNWZhNTVmN2MyYTQ1NzEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.x14uZTK0NNBAc2-w26q4MkdKc6q4QT_JMYiPcAGOCKM`,
+        },
+      }
+    );
+    return response.data.results.map((movie: MovieType) => ({
+      title: movie.title,
+      vote_average: movie.vote_average,
+      poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    }));
+  };
+  const upcomingMovies = await getUpcomingMovies();
   const moviesList: MovieType[] = [
     {
-      name: "The Godfather",
-      rating: 9.2,
-      imagepath: "/godfather.jpg",
+      title: "The Godfather",
+      vote_average: 9.2,
+      poster_path: "/godfather.jpg",
     },
     {
-      name: "How to train your dragon",
-      rating: 7.8,
-      imagepath: "/dragon.jpg",
+      title: "How to train your dragon",
+      vote_average: 7.8,
+      poster_path: "/dragon.jpg",
     },
     {
-      name: "Alien Romulus",
-      rating: 5.9,
-      imagepath: "/alien.jpg",
+      title: "Alien Romulus",
+      vote_average: 5.9,
+      poster_path: "/alien.jpg",
     },
     {
-      name: "From the Ashes",
-      rating: 8.1,
-      imagepath: "/ashes.jpg",
+      title: "From the Ashes",
+      vote_average: 8.1,
+      poster_path: "/ashes.jpg",
     },
   ];
 
@@ -66,7 +79,7 @@ export default function Home() {
         </Carousel>
       </div>
 
-      <SectionMovies sectionTitle="Upcoming" movies={moviesList} />
+      <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
       <SectionMovies sectionTitle="Popular" movies={moviesList} />
       <SectionMovies sectionTitle="Top Rated" movies={moviesList} />
       <Footer></Footer>
