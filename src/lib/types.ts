@@ -6,7 +6,7 @@ export type MoviesType = {
 
 export type MovieType = {
   //adult: boolean;
-  //backdrop_path: string;
+  backdrop_path: string;
   //genre_ids: object;
   //id: number;
   //original_language: string;

@@ -3,21 +3,13 @@ import { SectionMovies } from "./_components/sectionMovies";
 import { Footer } from "@/app/_components/Footer";
 import axios from "axios";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-
 import { MovieType } from "@/lib/types";
+import { CarouselContainer } from "./_components/CarouselContainer";
 
 export default async function Home() {
-  const getUpcomingMovies = async () => {
+  const getMovies = async (category: string) => {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
       {
         headers: {
           Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzhkNDY5ZDExNTczYzMwNzg3Yjk2NzJmMDQ5ZmVlZCIsIm5iZiI6MTc1OTQ2NDE4MS43MTI5OTk4LCJzdWIiOiI2OGRmNGFmNTdiNWZhNTVmN2MyYTQ1NzEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.x14uZTK0NNBAc2-w26q4MkdKc6q4QT_JMYiPcAGOCKM`,
@@ -28,10 +20,29 @@ export default async function Home() {
       title: movie.title,
       vote_average: movie.vote_average,
       poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      backdrop_path: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
     }));
   };
-  const upcomingMovies = await getUpcomingMovies();
-  const moviesList: MovieType[] = [
+  const upcomingMovies = await getMovies("upcoming");
+  const popularMovies = await getMovies("popular");
+  const topRatedMovies = await getMovies("top_rated");
+  const nowPlayingMovies = await getMovies("now_playing");
+
+  return (
+    <div className="w-full h-screen p-0 flex flex-col gap-2 ">
+      <Navigation />
+
+      <div className="w-full h-auto mb-8">
+        <CarouselContainer nowPlayingMovies={nowPlayingMovies} />
+      </div>
+      <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
+      <SectionMovies sectionTitle="Popular" movies={popularMovies} />
+      <SectionMovies sectionTitle="Top Rated" movies={topRatedMovies} />
+      <Footer></Footer>
+    </div>
+  );
+}
+/*const moviesList: MovieType[] = [
     {
       title: "The Godfather",
       vote_average: 9.2,
@@ -52,20 +63,22 @@ export default async function Home() {
       vote_average: 8.1,
       poster_path: "/ashes.jpg",
     },
-  ];
+  ];*/
 
-  return (
-    <div className="w-full h-screen p-0 flex flex-col gap-2 ">
-      <Navigation />
-      <div className="w-full h-auto mb-8">
-        <Carousel
+/*
+  <Carousel
           className="w-[100%] flex justify-center items-center"
-          plugins={[Autoplay({ delay: 2000 })]}
+          //plugins={[Autoplay({ delay: 2000 })]}
         >
           <CarouselContent className="relative w-[100%]">
-            {Array.from({ length: 3 }).map((_, index) => (
+            {nowPlayingMovies.map((movie, index) => (
               <CarouselItem key={index} className="w-[100%]">
-                <img src="/Carousel-imgs/wickedong.jpg" alt="" />
+                <Image
+                  src={movie.backdrop_path}
+                  alt={movie.title}
+                  fill
+                  className="object-cover"
+                ></Image>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -77,12 +90,4 @@ export default async function Home() {
             <li className="size-2.5 bg-white rounded-4xl"></li>
           </ol>
         </Carousel>
-      </div>
-
-      <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
-      <SectionMovies sectionTitle="Popular" movies={moviesList} />
-      <SectionMovies sectionTitle="Top Rated" movies={moviesList} />
-      <Footer></Footer>
-    </div>
-  );
-}
+  */

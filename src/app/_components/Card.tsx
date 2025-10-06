@@ -7,8 +7,10 @@ export const Card = (props: { movie: MovieType }) => {
     <div className="w-[230px] max-w-[230px] h-[439px] rounded-md bg-secondary flex flex-col">
       <Image
         src={movie.poster_path}
-        className="w-[229.73px] h-[340px] rounded-t-md"
+        className="rounded-t-md"
         alt={movie.title}
+        width={229.73}
+        height={340}
       ></Image>
 
       <div className="w-[100%] h-[95px] p-2 flex flex-col">
