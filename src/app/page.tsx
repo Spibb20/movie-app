@@ -16,6 +16,7 @@ export default async function Home() {
         },
       }
     );
+    console.log(response.data.results);
     return response.data.results.map((movie: MovieType) => ({
       title: movie.title,
       vote_average: movie.vote_average,
@@ -23,6 +24,7 @@ export default async function Home() {
       backdrop_path: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
     }));
   };
+
   const upcomingMovies = await getMovies("upcoming");
   const popularMovies = await getMovies("popular");
   const topRatedMovies = await getMovies("top_rated");
@@ -32,9 +34,8 @@ export default async function Home() {
     <div className="w-full h-screen p-0 flex flex-col gap-2 ">
       <Navigation />
 
-      <div className="w-full h-auto mb-8">
-        <CarouselContainer nowPlayingMovies={nowPlayingMovies} />
-      </div>
+      <CarouselContainer nowPlayingMovies={nowPlayingMovies} />
+
       <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
       <SectionMovies sectionTitle="Popular" movies={popularMovies} />
       <SectionMovies sectionTitle="Top Rated" movies={topRatedMovies} />
@@ -42,28 +43,6 @@ export default async function Home() {
     </div>
   );
 }
-/*const moviesList: MovieType[] = [
-    {
-      title: "The Godfather",
-      vote_average: 9.2,
-      poster_path: "/godfather.jpg",
-    },
-    {
-      title: "How to train your dragon",
-      vote_average: 7.8,
-      poster_path: "/dragon.jpg",
-    },
-    {
-      title: "Alien Romulus",
-      vote_average: 5.9,
-      poster_path: "/alien.jpg",
-    },
-    {
-      title: "From the Ashes",
-      vote_average: 8.1,
-      poster_path: "/ashes.jpg",
-    },
-  ];*/
 
 /*
   <Carousel
