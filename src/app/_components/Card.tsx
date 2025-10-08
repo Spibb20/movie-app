@@ -4,16 +4,16 @@ import Image from "next/image";
 export const Card = (props: { movie: MovieType }) => {
   const { movie } = props;
   return (
-    <div className="w-[230px] max-w-[230px] h-[439px] rounded-md bg-secondary flex flex-col">
+    <div className="w-[230px] max-w-[230px] h-[439px] rounded-md bg-secondary flex flex-col ">
       <Image
         src={movie.poster_path}
         className="rounded-t-md"
         alt={movie.title}
-        width={229.73}
+        width={230}
         height={340}
       ></Image>
 
-      <div className="w-[100%] h-[95px] p-2 flex flex-col">
+      <div className="w-[100%] h-[95px] p-2 flex flex-col border-1 border-t-0 border-teal-600 rounded-b-md">
         <div className="w-[100%] h-[23px] flex items-center gap-1">
           <div className="size-4">
             <img src="/star.svg" />

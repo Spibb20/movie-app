@@ -14,11 +14,11 @@ export type MovieType = {
   //overview: string;
   //popularity: number;
   poster_path: string;
-  //release_date: string;
+  release_date: string;
   title: string;
   //video: boolean;
   vote_average: number;
-  //vote_count: number;
+  vote_count: number;
 };
 
 export type CarouselType = {

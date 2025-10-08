@@ -11,14 +11,15 @@ export const SectionMovies = (props: {
   const { movies, sectionTitle } = props;
   const [seeMore, setSeeMore] = useState(10);
   return (
-    <div className="w-[100%] h-auto flex flex-col gap-8 pr-[80px] pl-[80px]">
+    <div className="w-[100%] h-auto flex flex-col gap-8 pr-[80px] pl-[80px] py-10">
       <div className="flex justify-between">
         <p className="font-bold text-[24px]">{sectionTitle}</p>
         <Button onClick={() => setSeeMore(20)} variant="ghost">
           See More →
         </Button>
       </div>
-      <div className="flex flex-wrap justify-items-start gap-3 space-y-8">
+      <div className="w-full h-0.5 bg-teal-600 rounded-2xl"></div>
+      <div className="flex flex-wrap justify-between lg:gap-3 md:gap-5 ">
         {movies
           .map((movie, index) => <Card movie={movie} key={index} />)
           .splice(0, seeMore)}
@@ -26,9 +27,3 @@ export const SectionMovies = (props: {
     </div>
   );
 };
-/*{Array.from({ length: 8 }).map((_, index) => (
-          <Card key={index}></Card>
-        ))}*/
-/*{movies.map((movie) => (
-          <Card movie={movie} />
-        ))}*/

@@ -1,27 +1,21 @@
 import { Navigation } from "@/app/_components/Navigation";
 import { SectionMovies } from "./_components/sectionMovies";
 import { Footer } from "@/app/_components/Footer";
-import axios from "axios";
-
+import { axiosInstance, getImageUrl } from "../lib/utils";
 import { MovieType } from "@/lib/types";
 import { CarouselContainer } from "./_components/CarouselContainer";
 
 export default async function Home() {
   const getMovies = async (category: string) => {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzhkNDY5ZDExNTczYzMwNzg3Yjk2NzJmMDQ5ZmVlZCIsIm5iZiI6MTc1OTQ2NDE4MS43MTI5OTk4LCJzdWIiOiI2OGRmNGFmNTdiNWZhNTVmN2MyYTQ1NzEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.x14uZTK0NNBAc2-w26q4MkdKc6q4QT_JMYiPcAGOCKM`,
-        },
-      }
+    const response = await axiosInstance.get(
+      `/movie/${category}?language=en-US&page=1`
     );
     console.log(response.data.results);
     return response.data.results.map((movie: MovieType) => ({
       title: movie.title,
       vote_average: movie.vote_average,
-      poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-      backdrop_path: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
+      poster_path: getImageUrl(movie.poster_path),
+      backdrop_path: getImageUrl(movie.backdrop_path, "original"),
     }));
   };
 

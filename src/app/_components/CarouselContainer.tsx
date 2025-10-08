@@ -15,26 +15,35 @@ export function CarouselContainer(props: { nowPlayingMovies: CarouselType[] }) {
   const { nowPlayingMovies } = props;
   console.log(nowPlayingMovies);
   return (
-    <div className="w-full h-auto mb-8">
+    <div className="w-full h-auto">
       <div className="">
-        <Carousel className="w-full">
+        <Carousel className="w-full" plugins={[Autoplay({ delay: 4000 })]}>
           <CarouselContent>
             {nowPlayingMovies.map((movie, index) => (
-              <CarouselItem key={index} className="w-screen h-[700px]">
-                <div className="w-full h-full">
+              <CarouselItem
+                key={index}
+                className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] flex justify-center items-center"
+              >
+                <div className=" relative w-full h-full">
                   <Image
                     src={movie.backdrop_path}
-                    alt={movie.backdrop_path}
+                    alt={movie.backdrop_path + index}
                     width={1000}
                     height={700}
                     className="w-full"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-400/40 via-teal-from-teal-100/20 to-transparent" />
+                  <div className="absolute bottom-10 left-10 text-white">
+                    <h2 className="text-2xl md:text-3xl font-bold drop-shadow-2xl">
+                      {movie.title}
+                    </h2>
+                  </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10 bg-teal-600/40 hover:bg-teal-600/70 rounded-full w-10 h-10" />
+          <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10 bg-teal-600/40 hover:bg-teal-600/70 rounded-full w-10 h-10" />
         </Carousel>
         {/* <Carousel
           className="w-full h-full"
