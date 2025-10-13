@@ -27,9 +27,7 @@ export default async function Home() {
   return (
     <div className="w-full h-screen p-0 flex flex-col gap-2 ">
       <Navigation />
-
       <CarouselContainer nowPlayingMovies={nowPlayingMovies} />
-
       <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
       <SectionMovies sectionTitle="Popular" movies={popularMovies} />
       <SectionMovies sectionTitle="Top Rated" movies={topRatedMovies} />

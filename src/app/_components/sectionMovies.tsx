@@ -19,7 +19,7 @@ export const SectionMovies = (props: {
         </Button>
       </div>
       <div className="w-full h-0.5 bg-teal-600 rounded-2xl"></div>
-      <div className="flex flex-wrap justify-between lg:gap-3 md:gap-5 ">
+      <div className="flex flex-wrap justify-items-start lg:gap-3 md:gap-5 ">
         {movies
           .map((movie, index) => <Card movie={movie} key={index} />)
           .splice(0, seeMore)}
