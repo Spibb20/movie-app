@@ -1,5 +1,5 @@
 import { Navigation } from "@/app/_components/Navigation";
-import { SectionMovies } from "./_components/sectionMovies";
+import { SectionMovies } from "./_components/SectionMovies";
 import { Footer } from "@/app/_components/Footer";
 import { axiosInstance, getImageUrl } from "../lib/utils";
 import { MovieType } from "@/lib/types";
@@ -35,30 +35,3 @@ export default async function Home() {
     </div>
   );
 }
-
-/*
-  <Carousel
-          className="w-[100%] flex justify-center items-center"
-          //plugins={[Autoplay({ delay: 2000 })]}
-        >
-          <CarouselContent className="relative w-[100%]">
-            {nowPlayingMovies.map((movie, index) => (
-              <CarouselItem key={index} className="w-[100%]">
-                <Image
-                  src={movie.backdrop_path}
-                  alt={movie.title}
-                  fill
-                  className="object-cover"
-                ></Image>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselNext className="absolute right-4 translate-x-0 hover:translate-x-0 hover:bg-primary/90" />
-          <CarouselPrevious className="absolute left-4" />
-          <ol className="size-10  absolute flex gap-2 bottom-[-14]">
-            <li className="size-2.5 bg-white rounded-4xl"></li>
-            <li className="size-2.5 bg-white rounded-4xl"></li>
-            <li className="size-2.5 bg-white rounded-4xl"></li>
-          </ol>
-        </Carousel>
-  */

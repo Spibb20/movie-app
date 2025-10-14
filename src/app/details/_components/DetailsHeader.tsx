@@ -1,7 +1,7 @@
-import { MovieType } from "@/lib/types";
+import { DetailsMovieType } from "@/lib/types";
 import Image from "next/image";
 
-export const DetailsHeader = (props: { movie: MovieType }) => {
+export const DetailsHeader = (props: { movie: DetailsMovieType }) => {
   const { movie } = props;
   return (
     <div className="w-full flex flex-col justify-center items-center">
