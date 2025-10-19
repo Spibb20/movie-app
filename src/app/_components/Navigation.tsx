@@ -6,8 +6,8 @@ import Image from "next/image";
 
 export const Navigation = () => {
   return (
-    <nav className="max-w-[1440px] w-full pr-4 pl-4 min-h-[59px] h-[59px] flex items-center justify-between ">
-      <div className="max-w-[1280px] w-full flex justify-between items-center">
+    <nav className=" w-full pr-4 pl-4 min-h-[59px] h-[59px] flex items-center justify-between ">
+      <div className=" w-full flex justify-between items-center">
         <div className="flex gap-2 items-center bg-teal-700 rounded-md p-2">
           <img src="/filmWhite.svg" alt="" height={20} width={20} />
           <p className="text-white">MovieZzZzZ</p>

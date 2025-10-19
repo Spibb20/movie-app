@@ -10,10 +10,13 @@ export default async function Home() {
     const response = await axiosInstance.get(
       `/movie/${category}?language=en-US&page=1`
     );
-    console.log(response.data.results);
+
     return response.data.results.map((movie: MovieType) => ({
+      id: movie.id,
       title: movie.title,
       vote_average: movie.vote_average,
+      vote_count: movie.vote_count,
+      release_date: movie.release_date,
       poster_path: getImageUrl(movie.poster_path),
       backdrop_path: getImageUrl(movie.backdrop_path, "original"),
     }));
@@ -25,13 +28,13 @@ export default async function Home() {
   const nowPlayingMovies = await getMovies("now_playing");
 
   return (
-    <div className="w-full h-screen p-0 flex flex-col gap-2 ">
+    <div className="w-full min-h-screen p-0 flex flex-col gap-2">
       <Navigation />
       <CarouselContainer nowPlayingMovies={nowPlayingMovies} />
       <SectionMovies sectionTitle="Upcoming" movies={upcomingMovies} />
       <SectionMovies sectionTitle="Popular" movies={popularMovies} />
       <SectionMovies sectionTitle="Top Rated" movies={topRatedMovies} />
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

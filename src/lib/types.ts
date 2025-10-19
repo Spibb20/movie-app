@@ -1,45 +1,33 @@
-export type MoviesType = {
-  name: string;
-  rating: number;
-  imagepath: string;
-};
-
 export type MovieType = {
-  //adult: boolean;
   backdrop_path: string;
-  //genre_ids: object;
   id: number;
-  //original_language: string;
-  //original_title: string;
-  //overview: string;
-  //popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
-  //video: boolean;
   vote_average: number;
   vote_count: number;
 };
 
 export type CarouselType = {
   backdrop_path: string;
-  //id: number;
   title: string;
 };
 
-export type DetailsMovieType = {
-  //adult: boolean;
-  backdrop_path: string;
-  //genre_ids: object;
+export type GenreType = {
   id: number;
-  //original_language: string;
-  //original_title: string;
-  //overview: string;
-  //popularity: number;
+  name: string;
+};
+
+export type DetailsMovieType = {
+  backdrop_path: string;
+  id: number;
   poster_path: string;
   release_date: string;
   title: string;
-  //video: boolean;
   vote_average: number;
   vote_count: number;
+
+  overview: string;
+  genres: GenreType[];
+  runtime: number | null;
 };
