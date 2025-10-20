@@ -7,11 +7,11 @@ import { Trailer } from "../_components/Trailer";
 import type { DetailsMovieType } from "@/lib/types";
 
 type PageProps = {
-  params: { movieId: string };
+  params: Promise<{ movieId: string }>;
 };
 
 export default async function MovieDetailsPage({ params }: PageProps) {
-  const { movieId } = params;
+  const { movieId } = await params;
 
   const [movieRes, videosRes, similarRes] = await Promise.all([
     axiosInstance.get(`/movie/${movieId}?language=en-US`),
