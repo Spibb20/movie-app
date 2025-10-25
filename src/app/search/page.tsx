@@ -7,19 +7,24 @@ import Image from "next/image";
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { query?: string; page?: string };
+  searchParams: Promise<{ query?: string; page?: string }>;
 }) {
-  const query = (searchParams.query ?? "").trim();
-  const page = Number(searchParams.page ?? "1");
+  const { query, page } = await searchParams;
 
+  const q = (query ?? "").trim();
+  const currentPage = Number(page ?? "1");
   const res = await fetch(
     `${
       process.env.NEXT_PUBLIC_BASE_URL ?? ""
-    }/api/tmdb/search?q=${encodeURIComponent(query)}&page=${page}`,
+    }/api/tmdb/search?q=${encodeURIComponent(q)}&page=${currentPage}`,
     { cache: "no-store" }
   );
   const data = await res.json();
-  const results = data.results ?? [];
+  const results: {
+    id: number;
+    title: string;
+    poster_path: string;
+  }[] = data.results ?? [];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -28,11 +33,11 @@ export default async function SearchPage({
       <div className="w-full max-w-[1080px] mx-auto px-6 py-10">
         <h1 className="text-2xl font-bold">Search results</h1>
         <p className="text-gray-600 mt-2">
-          {results.length} results for "{query}"
+          {results.length} results for {`"${q}"`}
         </p>
 
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
-          {results.map((m: any) => (
+          {results.map((m) => (
             <Link key={m.id} href={`/details/${m.id}`}>
               <div className="rounded-md bg-secondary overflow-hidden">
                 <Image

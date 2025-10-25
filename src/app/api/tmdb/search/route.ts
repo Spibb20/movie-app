@@ -12,8 +12,9 @@ export async function GET(req: Request) {
     const res = await axiosInstance.get("/search/movie", {
       params: { query: q, language: "en-US", page },
     });
+
     return NextResponse.json(res.data);
-  } catch (e: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { results: [], error: "TMDB search failed" },
       { status: 500 }

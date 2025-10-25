@@ -1,6 +1,6 @@
 import { Navigation } from "@/app/_components/Navigation";
-import { SectionMovies } from "./_components/SectionMovies";
 import { Footer } from "@/app/_components/Footer";
+import { SectionMovies } from "./_components/SectionMovies";
 import { axiosInstance, getImageUrl } from "../lib/utils";
 import { MovieType } from "@/lib/types";
 import { CarouselContainer } from "./_components/CarouselContainer";

@@ -5,6 +5,7 @@ import { DetailsHeader } from "../_components/DetailsHeader";
 import { MoreLikeThis } from "../_components/MoreLikeThis";
 import { Trailer } from "../_components/Trailer";
 import type { DetailsMovieType } from "@/lib/types";
+import type { MovieType } from "@/lib/types";
 
 type PageProps = {
   params: Promise<{ movieId: string }>;
@@ -30,19 +31,31 @@ export default async function MovieDetailsPage({ params }: PageProps) {
     poster_path: getImageUrl(m.poster_path),
     backdrop_path: getImageUrl(m.backdrop_path, "original"),
     overview: m.overview,
-    genres: (m.genres ?? []).map((g: any) => ({ id: g.id, name: g.name })),
+    genres: (m.genres ?? []).map((g: { id: number; name: string }) => ({
+      id: g.id,
+      name: g.name,
+    })),
     runtime: m.runtime ?? null,
   };
 
+  const videos: { type: string; site: string; key: string }[] =
+    videosRes.data.results ?? [];
+
   const trailer =
-    (videosRes.data.results ?? []).find(
-      (v: any) => v.type === "Trailer" && v.site === "YouTube"
-    ) ??
-    (videosRes.data.results ?? []).find((v: any) => v.site === "YouTube") ??
+    videos.find((v) => v.type === "Trailer" && v.site === "YouTube") ??
+    videos.find((v) => v.site === "YouTube") ??
     null;
 
-  const similarMovies =
-    (similarRes.data.results ?? []).map((sm: any) => ({
+  const similarMovies: MovieType[] = (similarRes.data.results ?? []).map(
+    (sm: {
+      id: number;
+      title: string;
+      vote_average: number;
+      vote_count: number;
+      release_date: string;
+      poster_path: string;
+      backdrop_path: string;
+    }) => ({
       id: sm.id,
       title: sm.title,
       vote_average: sm.vote_average,
@@ -50,7 +63,8 @@ export default async function MovieDetailsPage({ params }: PageProps) {
       release_date: sm.release_date,
       poster_path: getImageUrl(sm.poster_path),
       backdrop_path: getImageUrl(sm.backdrop_path, "original"),
-    })) ?? [];
+    })
+  );
 
   return (
     <div className="w-full min-h-screen p-0 flex flex-col">

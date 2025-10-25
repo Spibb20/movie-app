@@ -18,18 +18,28 @@ export default async function GenrePage({
   const currentPage = Number(page ?? "1");
 
   const res = await axiosInstance.get("/discover/movie", {
-    params: { language: "en", with_genres: genreId, page },
+    params: { language: "en", with_genres: genreId, page: currentPage },
   });
 
-  const movies: MovieType[] = (res.data.results ?? []).map((m: any) => ({
-    id: m.id,
-    title: m.title,
-    vote_average: m.vote_average,
-    vote_count: m.vote_count,
-    release_date: m.release_date,
-    poster_path: getImageUrl(m.poster_path),
-    backdrop_path: getImageUrl(m.backdrop_path, "original"),
-  }));
+  const movies: MovieType[] = (res.data.results ?? []).map(
+    (m: {
+      id: number;
+      title: string;
+      vote_average: number;
+      vote_count: number;
+      release_date: string;
+      poster_path: string;
+      backdrop_path: string;
+    }) => ({
+      id: m.id,
+      title: m.title,
+      vote_average: m.vote_average,
+      vote_count: m.vote_count,
+      release_date: m.release_date,
+      poster_path: getImageUrl(m.poster_path),
+      backdrop_path: getImageUrl(m.backdrop_path, "original"),
+    })
+  );
 
   const totalPages = res.data.total_pages ?? 1;
 
@@ -55,7 +65,7 @@ export default async function GenrePage({
           </Link>
 
           <span className="text-sm text-gray-600">
-            {page} / {totalPages}
+            {currentPage} / {totalPages}
           </span>
 
           <Link

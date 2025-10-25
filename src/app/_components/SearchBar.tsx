@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -48,13 +47,18 @@ export function SearchBar() {
         );
 
         const data = await res.json();
-        const results = (data.results ?? []).slice(0, 7).map((m: any) => ({
-          id: m.id,
-          title: m.title,
-          poster: m.poster_path
-            ? `https://image.tmdb.org/t/p/w92${m.poster_path}`
-            : null,
-        }));
+        const results = (data.results ?? [])
+          .slice(0, 7)
+          .map(
+            (m: { id: number; title: string; poster_path: string | null }) => ({
+              id: m.id,
+              title: m.title,
+              poster: m.poster_path
+                ? `https://image.tmdb.org/t/p/w92${m.poster_path}`
+                : null,
+            })
+          );
+
         setItems(results);
         setOpen(true);
       } catch {}
@@ -122,7 +126,6 @@ export function SearchBar() {
                   >
                     <div className="w-10 h-14 rounded overflow-hidden bg-muted shrink-0">
                       {m.poster ? (
-                        // next/image is fine here too, but <img> is simpler for tiny thumbs
                         <img
                           src={m.poster}
                           alt={m.title}
