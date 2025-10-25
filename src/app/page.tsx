@@ -1,9 +1,9 @@
 import { Navigation } from "@/app/_components/Navigation";
 import { Footer } from "@/app/_components/Footer";
-import { SectionMovies } from "./_components/SectionMovies";
 import { axiosInstance, getImageUrl } from "../lib/utils";
 import { MovieType } from "@/lib/types";
 import { CarouselContainer } from "./_components/CarouselContainer";
+import { SectionMovies } from "./_components/SectionMoviez";
 
 export default async function Home() {
   const getMovies = async (category: string) => {
